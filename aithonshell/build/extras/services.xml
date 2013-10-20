@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE SERVICES SYSTEM "services.dtd">
+<SERVICES>
+	<SERVICE NAME="Aithon" CLASS="console.Shell">
+		new aithon.shell.AithonShell();
+	</SERVICE>
+</SERVICES>

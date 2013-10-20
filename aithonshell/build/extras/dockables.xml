@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE DOCKABLES SYSTEM "dockables.dtd">
+
+<DOCKABLES>
+  <DOCKABLE NAME="aithonwindow">
+      shell = console.Shell.getShell("Aithon");
+      shell.showWindow(view);
+  </DOCKABLE>
+</DOCKABLES>
