@@ -8,14 +8,14 @@ class TestShell {
     Scanner scanner = new Scanner(System.in);
 
     while(loop == 1) {
-      String i = scanner.next();
+      String i = scanner.nextLine();
 
-      switch (i) {
-        case "q":
+      System.out.println("Received: " + i);
+
+      if (i.equals("q")) {
           loop = 0;
-          break;
-        case "d":
-          break;
+      } else if (i.equals("d")) {
+
       }
     }
   }
