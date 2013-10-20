@@ -1,8 +1,8 @@
 package aithon.shell;
 /**
- * @author Damien Radtke
+ * @author Aithon Development Team
  * class AithonShellOptionPane
- * TODO: comment
+ * Option pane under 'Plugins->Options'
  */
 //{{{ Imports
 import java.awt.event.ActionEvent;
