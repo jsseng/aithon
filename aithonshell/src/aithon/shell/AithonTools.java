@@ -46,21 +46,21 @@ import org.gjt.sp.util.StandardUtilities;
  *
  */
 public class AithonTools extends JPanel
-    implements EBComponent, AithonToolsActions, DefaultFocusComponent,
-    ActionListener {
+implements EBComponent, AithonToolsActions, DefaultFocusComponent,
+ActionListener {
 
-	private String filename;
-	private String defaultFilename;
-	private View view;
-	private boolean floating;
+  private String filename;
+  private String defaultFilename;
+  private View view;
+  private boolean floating;
   private JButton detectButton;
   private JButton uploadButton;
   private JButton compileButton;
 
-    // {{{ Constructor
-	public AithonTools(View view) {
+  // {{{ Constructor
+  public AithonTools(View view) {
     this.view=view;
-		this.floating = true;
+    this.floating = true;
     setLayout(new BorderLayout());
 
     JToolBar buttons = new JToolBar();
@@ -89,123 +89,123 @@ public class AithonTools extends JPanel
     this.setPreferredSize(new Dimension(500, 250));
   }
 
-	/**
-	 * 
-	 * @param view the current jedit window
-	 * @param position a variable passed in from the script in actions.xml,
-	 * 	which can be DockableWindowManager.FLOATING, TOP, BOTTOM, LEFT, RIGHT, etc.
-	 * 	see @ref DockableWindowManager for possible values.
-	 */
-	public AithonTools(View view, String position) {
-		super(new BorderLayout());
-		this.view = view;
-		this.floating = position.equals(DockableWindowManager.FLOATING);
+  /**
+   * 
+   * @param view the current jedit window
+   * @param position a variable passed in from the script in actions.xml,
+   * 	which can be DockableWindowManager.FLOATING, TOP, BOTTOM, LEFT, RIGHT, etc.
+   * 	see @ref DockableWindowManager for possible values.
+   */
+  public AithonTools(View view, String position) {
+    super(new BorderLayout());
+    this.view = view;
+    this.floating = position.equals(DockableWindowManager.FLOATING);
 
-		if (jEdit.getSettingsDirectory() != null) {
-			this.filename = "";
-			if (this.filename == null || this.filename.length() == 0) {
-				this.filename = new String(jEdit.getSettingsDirectory()
-						+ File.separator + "qn.txt");
-			}
-			this.defaultFilename = this.filename;
-		}
+    if (jEdit.getSettingsDirectory() != null) {
+      this.filename = "";
+      if (this.filename == null || this.filename.length() == 0) {
+        this.filename = new String(jEdit.getSettingsDirectory()
+            + File.separator + "qn.txt");
+      }
+      this.defaultFilename = this.filename;
+    }
 
-		if (floating)
-			this.setPreferredSize(new Dimension(500, 250));
+    if (floating)
+      this.setPreferredSize(new Dimension(500, 250));
 
-		readFile();
-	}
-    // }}}
+    readFile();
+  }
+  // }}}
 
-    // {{{ Member Functions
-    
-    // {{{ focusOnDefaultComponent
-	public void focusOnDefaultComponent() {
-	}
-    // }}}
+  // {{{ Member Functions
 
-    // {{{ getFileName
-	public String getFilename() {
-		return filename;
-	}
-    // }}}
+  // {{{ focusOnDefaultComponent
+  public void focusOnDefaultComponent() {
+  }
+  // }}}
 
-	// EBComponent implementation
-	
-    // {{{ handleMessage
-	public void handleMessage(EBMessage message) {
-		if (message instanceof PropertiesChanged) {
-			propertiesChanged();
-		}
-	}
-    // }}}
-    
-    // {{{ propertiesChanged
-	private void propertiesChanged() {
-		String propertyFilename = "";
-		if (!StandardUtilities.objectsEqual(defaultFilename, propertyFilename)) {
-			saveFile();
-			//toolPanel.propertiesChanged();
-			defaultFilename = propertyFilename;
-			filename = defaultFilename;
-			readFile();
-		}
-	}
-    // }}}
+  // {{{ getFileName
+  public String getFilename() {
+    return filename;
+  }
+  // }}}
 
-	// These JComponent methods provide the appropriate points
-	// to subscribe and unsubscribe this object to the EditBus.
+  // EBComponent implementation
 
-    // {{{ addNotify
-	public void addNotify() {
-		super.addNotify();
-		EditBus.addToBus(this);
-	}
-     // }}}
-     
-    // {{{ removeNotify
-	public void removeNotify() {
-		saveFile();
-		super.removeNotify();
-		EditBus.removeFromBus(this);
-	}
-    // }}}
-    
+  // {{{ handleMessage
+  public void handleMessage(EBMessage message) {
+    if (message instanceof PropertiesChanged) {
+      propertiesChanged();
+    }
+  }
+  // }}}
+
+  // {{{ propertiesChanged
+  private void propertiesChanged() {
+    String propertyFilename = "";
+    if (!StandardUtilities.objectsEqual(defaultFilename, propertyFilename)) {
+      saveFile();
+      //toolPanel.propertiesChanged();
+      defaultFilename = propertyFilename;
+      filename = defaultFilename;
+      readFile();
+    }
+  }
+  // }}}
+
+  // These JComponent methods provide the appropriate points
+  // to subscribe and unsubscribe this object to the EditBus.
+
+  // {{{ addNotify
+  public void addNotify() {
+    super.addNotify();
+    EditBus.addToBus(this);
+  }
+  // }}}
+
+  // {{{ removeNotify
+  public void removeNotify() {
+    saveFile();
+    super.removeNotify();
+    EditBus.removeFromBus(this);
+  }
+  // }}}
+
   public void actionPerformed(ActionEvent evt) {
     Object src = evt.getSource();
     if (src == detectButton) {
-      //TODO: detect the board
+      jEdit.getAction("aithon-detect-board").invoke(view); //detect the board
     } else if (src == uploadButton) {
       //TODO: switch the console to the Aithon shell
       jEdit.getAction("aithon-upload-hex").invoke(view); //run the upload action
     } else if (src == compileButton) {
-      //TODO: run the compile command
+      jEdit.getAction("aithon-compile-code").invoke(view); //run the compile action
     }
   }
 
   // QuickNotepadActions implementation
 
-    // {{{
-	public void saveFile() {
-	}
-    // }}}
-    
-    // {{{ chooseFile
-	public void chooseFile() {
-	}
-    // }}}
+  // {{{
+  public void saveFile() {
+  }
+  // }}}
 
-    // {{{ copyToBuffer
-	public void copyToBuffer() {
-	}
-    // }}}
-    // {{{ readFile()
-	/**
-	 * Helper method
-	 */
-	private void readFile() {
-	}
-    // }}}
-    // }}}
+  // {{{ chooseFile
+  public void chooseFile() {
+  }
+  // }}}
+
+  // {{{ copyToBuffer
+  public void copyToBuffer() {
+  }
+  // }}}
+  // {{{ readFile()
+  /**
+   * Helper method
+   */
+  private void readFile() {
+  }
+  // }}}
+  // }}}
 }
 // }}}

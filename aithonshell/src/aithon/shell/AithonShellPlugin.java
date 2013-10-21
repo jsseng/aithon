@@ -12,11 +12,11 @@ public class AithonShellPlugin extends EditPlugin {
   public static final String NAME = "aithonshell";
   public static final String OPTION_PREFIX = "options.aithon-shell.";
 
-	public void start() {}
-	public void stop() {
-		try {
-			AithonShell shell = (AithonShell) Shell.getShell("Aithon");
-			shell.stop();
-		} catch (Exception e) {}
-	}
+  public void start() {}
+  public void stop() {
+    try {
+      AithonShell shell = (AithonShell) Shell.getShell("Aithon");
+      shell.stop();
+    } catch (Exception e) {}
+  }
 }

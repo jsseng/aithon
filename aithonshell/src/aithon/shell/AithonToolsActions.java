@@ -1,9 +1,9 @@
 package aithon.shell;
 
 interface AithonToolsActions {
-	void chooseFile();
+  void chooseFile();
 
-	void saveFile();
+  void saveFile();
 
-	void copyToBuffer();
+  void copyToBuffer();
 }

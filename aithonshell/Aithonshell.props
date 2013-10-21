@@ -21,11 +21,13 @@ plugin.aithon.shell.AithonShellPlugin.depend.2=plugin procshell.ProcessShellPlug
 plugin.aithon.shell.AithonShellPlugin.menu=aithon-eval-selected \
                                            aithon-upload-hex \
                                            aithon-serial-terminal \
-                                           aithon-detect-board
+                                           aithon-detect-board \
+                                           aithon-compile-code
 aithon-eval-selected.label=Evaluate Selection in Aithon shell
 aithon-upload-hex.label=Upload HEX to Aithon Board
 aithon-serial-terminal.label=Open Serial Terminal
 aithon-detect-board.label=Detect Aithon Board
+aithon-compile-code.label=Compile Code
 # }}} Menu
 
 # action labels for actions supplied by dockables.xml
