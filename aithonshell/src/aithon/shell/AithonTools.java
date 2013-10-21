@@ -1,6 +1,9 @@
 package aithon.shell;
 
 // {{{ imports
+import console.Console;
+import console.Output;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,6 +20,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.JLabel;
+import javax.swing.JComponent;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import org.gjt.sp.jedit.EBComponent;
 import org.gjt.sp.jedit.EBMessage;
@@ -38,7 +45,8 @@ import org.gjt.sp.util.StandardUtilities;
  *
  */
 public class AithonTools extends JPanel
-    implements EBComponent, AithonToolsActions, DefaultFocusComponent {
+    implements EBComponent, AithonToolsActions, DefaultFocusComponent,
+    ActionListener {
 
 	private String filename;
 	private String defaultFilename;
@@ -57,13 +65,20 @@ public class AithonTools extends JPanel
     JToolBar buttons = new JToolBar();
     detectButton = new JButton("Detect\nBoard"); 
     detectButton.setText("<html><center>"+"Detect"+"<br>"+"Board"+"</center></html>");
+    detectButton.addActionListener(this);
+
     compileButton = new JButton("Compile");
     compileButton.setText("<html><center>"+"Compile"+"<br>"+"Code"+"</center></html>");
+    compileButton.addActionListener(this);
+
     uploadButton = new JButton("Upload");
     uploadButton.setText("<html><center>"+"Upload"+"<br>"+"HEX File"+"</center></html>");
+    uploadButton.addActionListener(this);
+
     buttons.add(detectButton);
     buttons.add(compileButton);
     buttons.add(uploadButton);
+
 
     add(buttons, BorderLayout.CENTER);
 
@@ -155,7 +170,16 @@ public class AithonTools extends JPanel
 	}
     // }}}
     
-	// QuickNotepadActions implementation
+  public void actionPerformed(ActionEvent evt) {
+    Object src = evt.getSource();
+    if (src == detectButton) {
+      JComponent console = view.getDockableWindowManager().getDockableWindow("console");
+    } else if (src == uploadButton) {
+    } else if (src == compileButton) {
+    }
+  }
+
+  // QuickNotepadActions implementation
 
     // {{{
 	public void saveFile() {
