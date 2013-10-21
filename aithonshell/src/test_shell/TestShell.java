@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.Console;
 
 class TestShell {
   public static void main(String[] args) {
@@ -6,9 +7,13 @@ class TestShell {
     System.out.println("test output");
 
     Scanner scanner = new Scanner(System.in);
+    //Console console = System.console();
+    //System.out.println(console);
 
     while(loop == 1) {
       String i = scanner.nextLine();
+      //char[] input = console.readPassword("");
+      //String i = new String(input);
 
       System.out.println("Received: " + i);
 

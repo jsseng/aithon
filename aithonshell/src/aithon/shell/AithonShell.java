@@ -10,6 +10,7 @@ import console.Output;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Hashtable;
 
@@ -31,16 +32,13 @@ public class AithonShell extends ProcessShell {
   private AithonTools AithonWindow;
 	
 	private String prompt = ">>> ";
+  private OutputStream o;
 	
 	/*
  	 * Constructor for AithonShell
  	 */
 	public AithonShell() {
 		super("Aithon");
-
-    //System.out.println("Creating AithonShell");
-    //from QuickNotepad
-    //q = new QuickNotepad(,DockableWindowManager.FLOATING);
   }
 
   //{{{ init()
@@ -56,7 +54,10 @@ public class AithonShell extends ProcessShell {
 		Log.log(Log.DEBUG,this,"Attempting to start Aithon process: "+exec);
 		//ProcessBuilder pb = new ProcessBuilder(exec, "-cp " + exec_dir + " " + exec_class);
 		ProcessBuilder pb = new ProcessBuilder(exec_command, "");
+
 		state.p = pb.start();
+    o = state.p.getOutputStream();
+    o.flush();
 		Log.log(Log.DEBUG,this,"Aithon started.");
 	}
 	//}}}
@@ -66,7 +67,14 @@ public class AithonShell extends ProcessShell {
 	 * Evaluate text
 	 */
 	public void eval(Console console, String str) {
-		send(console, str);
+		//send(console, str);
+    try {
+      byte[] b = str.getBytes();
+      o.write(str.getBytes());
+      o.write(13);
+      o.flush();
+    } catch (Exception e) {
+    }
 	} //}}}
 	
 	//{{{ evalBuffer()
