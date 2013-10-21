@@ -8,6 +8,13 @@
       wm.getDockableWindow("aithonwindow").focus();
 		</CODE>
 	</ACTION>
+	<ACTION NAME="aithon-upload-hex">
+		<CODE>
+			dockable = wm.getDockableWindow("console");
+			shell = console.Shell.getShell("Aithon");
+      shell.eval(dockable, "upload_command...");
+		</CODE>
+	</ACTION>
 	<ACTION NAME="aithon-eval-buffer">
 		<CODE>
 			wm.addDockableWindow("console");
@@ -36,7 +43,7 @@
 			}
 		</CODE>
 	</ACTION>
-	<ACTION NAME="aithon-upload-hex">
+	<ACTION NAME="aithon-upload-hex-old">
 		<CODE>
 			dialog = new VFSFileChooserDialog(view, buffer.getDirectory(),
 				VFSBrowser.OPEN_DIALOG, false, true);

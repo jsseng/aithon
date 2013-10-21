@@ -18,7 +18,8 @@ plugin.aithon.shell.AithonShellPlugin.depend.2=plugin procshell.ProcessShellPlug
 # }}} Dependencies
 
 # Menu {{{
-plugin.aithon.shell.AithonShellPlugin.menu=aithon-upload-hex \
+plugin.aithon.shell.AithonShellPlugin.menu=aithon-eval-selected \
+                                           aithon-upload-hex \
                                            aithon-serial-terminal \
                                            aithon-detect-board
 aithon-eval-selected.label=Evaluate Selection in Aithon shell
@@ -47,6 +48,9 @@ options.aithon-shell.code=new aithon.shell.AithonShellOptionPane();
 
 options.aithon-shell.textfield-label=Aithon executable:
 
-options.aithon-shell.exec=python
+#options.aithon-shell.exec=python
+options.aithon-shell.exec=/Users/jseng/aithon/aithonshell/src/test_shell/run.sh
+options.aithon-shell.exec-dir=/Users/jseng/aithon/aithonshell/src/test_shell
+options.aithon-shell.exec-class=TestShell
 #}}}
 

@@ -49,8 +49,13 @@ public class AithonShell extends ProcessShell {
    */
 	protected void init(ConsoleState state, String command) throws IOException {
 		String exec = jEdit.getProperty("options.aithon-shell.exec");
+		String exec_dir = jEdit.getProperty("options.aithon-shell.exec-dir");
+		String exec_class = jEdit.getProperty("options.aithon-shell.exec-class");
+    //String exec_command = exec + " -cp " + exec_dir + " " + exec_class;
+    String exec_command = exec;
 		Log.log(Log.DEBUG,this,"Attempting to start Aithon process: "+exec);
-		ProcessBuilder pb = new ProcessBuilder(exec, "-i");
+		//ProcessBuilder pb = new ProcessBuilder(exec, "-cp " + exec_dir + " " + exec_class);
+		ProcessBuilder pb = new ProcessBuilder(exec_command, "");
 		state.p = pb.start();
 		Log.log(Log.DEBUG,this,"Aithon started.");
 	}
@@ -61,7 +66,7 @@ public class AithonShell extends ProcessShell {
 	 * Evaluate text
 	 */
 	public void eval(Console console, String str) {
-		send(console, "exec(\""+str+"\")");
+		send(console, str);
 	} //}}}
 	
 	//{{{ evalBuffer()
