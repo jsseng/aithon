@@ -3,9 +3,10 @@
   svn co https://jedit.svn.sourceforge.net/svnroot/jedit/build-support/trunk build-support
 
 2.  Edit the build.properties file to match your jEdit installation
-3.  Run 'ant' to build
-4.  Run 'ant dist' to install into your jEdit
-5.  Install the following plugins in jEdit:  Console, Processhell
+3.  Run jEdit and install the following plugins in jEdit (before trying to compile the
+    aithonshell plugin):  Console, Processhell
+4.  Run 'ant' to build
+5.  Run 'ant dist' to install into your jEdit
 
 ----
 Installing Ant For Windows
