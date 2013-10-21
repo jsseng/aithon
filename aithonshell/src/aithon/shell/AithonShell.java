@@ -70,8 +70,8 @@ public class AithonShell extends ProcessShell {
     //send(console, str);
     try {
       byte[] b = str.getBytes();
-      o.write(str.getBytes());
-      o.write(13);
+      o.write(str.getBytes()); //send the command as bytes
+      o.write(10); //send a newline \n
       o.flush();
     } catch (Exception e) {
     }
