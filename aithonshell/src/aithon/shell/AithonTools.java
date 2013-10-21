@@ -3,6 +3,7 @@ package aithon.shell;
 // {{{ imports
 import console.Console;
 import console.Output;
+import console.Shell;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -173,9 +174,12 @@ public class AithonTools extends JPanel
   public void actionPerformed(ActionEvent evt) {
     Object src = evt.getSource();
     if (src == detectButton) {
-      JComponent console = view.getDockableWindowManager().getDockableWindow("console");
+      //TODO: detect the board
     } else if (src == uploadButton) {
+      //TODO: switch the console to the Aithon shell
+      jEdit.getAction("aithon-upload-hex").invoke(view); //run the upload action
     } else if (src == compileButton) {
+      //TODO: run the compile command
     }
   }
 
