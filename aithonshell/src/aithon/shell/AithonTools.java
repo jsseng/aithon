@@ -174,6 +174,7 @@ ActionListener {
   public void actionPerformed(ActionEvent evt) {
     Object src = evt.getSource();
     if (src == detectButton) {
+      console.Shell.getShell("Aithon"); //.SwitchAction.invoke(view);
       jEdit.getAction("aithon-detect-board").invoke(view); //detect the board
     } else if (src == uploadButton) {
       //TODO: switch the console to the Aithon shell

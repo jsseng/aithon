@@ -5,4 +5,12 @@
 2.  Edit the build.properties file to match your jEdit installation
 3.  Run 'ant' to build
 4.  Run 'ant dist' to install into your jEdit
+5.  Install the following plugins in jEdit:  Console, Processhell
 
+----
+Installing Ant For Windows
+
+1.  Download Ant
+2.  Unzip the file into a directory
+3.  Set the environment variable $ANT_HOME to point to the directory
+4.  Add the directory $ANT_HOME\bin to the Path environment variable
