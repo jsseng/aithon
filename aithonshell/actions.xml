@@ -2,64 +2,46 @@
 <!DOCTYPE ACTIONS SYSTEM "actions.dtd">
 
 <ACTIONS>
-	<ACTION NAME="aithon-eval-selected">
-		<CODE>
-      wm.addDockableWindow("aithonwindow");
-      wm.getDockableWindow("aithonwindow").focus();
-		</CODE>
-	</ACTION>
-	<ACTION NAME="aithon-upload-hex">
-		<CODE>
-			dockable = wm.getDockableWindow("console");
-			shell = console.Shell.getShell("Aithon");
+  <ACTION NAME="aithon-eval-selected">
+    <CODE>
+       wm.addDockableWindow("aithonwindow");
+       wm.getDockableWindow("aithonwindow").focus();
+    </CODE>
+  </ACTION>
+  <ACTION NAME="aithon-upload-hex">
+    <CODE>
+      dockable = wm.getDockableWindow("console");
+      shell = console.Shell.getShell("Aithon");
       shell.eval(dockable, "upload_command...");
-		</CODE>
-	</ACTION>
-	<ACTION NAME="aithon-eval-buffer">
-		<CODE>
-			wm.addDockableWindow("console");
-			dockable = wm.getDockableWindow("console");
-			shell = console.Shell.getShell("Aithon");
-			if (buffer.isNewFile()) {
-				shell.eval(dockable, buffer.getText(0, buffer.getLength()));
-			} else {
-				shell.evalBuffer(dockable, buffer);
-			}
-		</CODE>
-	</ACTION>
-	<ACTION NAME="aithon-eval-file">
-		<CODE>
-			dialog = new VFSFileChooserDialog(view, buffer.getDirectory(),
-				VFSBrowser.OPEN_DIALOG, false, true);
-			files = dialog.getSelectedFiles();
-			if (files != null) {
-				wm.addDockableWindow("console");
-				dockable = wm.getDockableWindow("console");
-				shell = console.Shell.getShell("Aithon");
-				f = new File(files[0]);
-				buffer = jEdit.openTemporary(view, f.getParent(), f.getName(),
-					false);
-				shell.evalBuffer(dockable, buffer);
-			}
-		</CODE>
-	</ACTION>
-	<ACTION NAME="aithon-upload-hex-old">
-		<CODE>
-			dialog = new VFSFileChooserDialog(view, buffer.getDirectory(),
-				VFSBrowser.OPEN_DIALOG, false, true);
-			files = dialog.getSelectedFiles();
-			if (files != null) {
-				wm.addDockableWindow("console");
-				dockable = wm.getDockableWindow("console");
-				shell = console.Shell.getShell("Aithon");
-				f = new File(files[0]);
-				buffer = jEdit.openTemporary(view, f.getParent(), f.getName(),
-					false);
-				shell.evalBuffer(dockable, buffer);
-			}
-		</CODE>
-	</ACTION>
-	<ACTION NAME="aithon-detect-board">
+    </CODE>
+  </ACTION>
+  <ACTION NAME="aithon-compile-code">
+    <CODE>
+      dockable = wm.getDockableWindow("console");
+      shell = console.Shell.getShell("Aithon");
+      shell.eval(dockable, "compile_command...");
+    </CODE>
+  </ACTION>
+  <ACTION NAME="aithon-detect-board">
+    <CODE>
+      dockable = wm.getDockableWindow("console");
+      shell = console.Shell.getShell("Aithon");
+      shell.eval(dockable, "detect_command...");
+    </CODE>
+  </ACTION>
+  <ACTION NAME="aithon-eval-buffer">
+    <CODE>
+      wm.addDockableWindow("console");
+      dockable = wm.getDockableWindow("console");
+      shell = console.Shell.getShell("Aithon");
+      if (buffer.isNewFile()) {
+        shell.eval(dockable, buffer.getText(0, buffer.getLength()));
+      } else {
+        shell.evalBuffer(dockable, buffer);
+      }
+    </CODE>
+  </ACTION>
+<ACTION NAME="aithon-eval-file">
 		<CODE>
 			dialog = new VFSFileChooserDialog(view, buffer.getDirectory(),
 				VFSBrowser.OPEN_DIALOG, false, true);
