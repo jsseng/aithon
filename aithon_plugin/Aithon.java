@@ -87,13 +87,15 @@ public class Aithon extends JPanel
     add(buttons, BorderLayout.WEST);
 
     JTextArea c = new JTextArea("This is a test sentence. jdkslfdjalk klfd; asjfkdla ;fjdksla; fdjkslaf d;sal dfkj");
+
+    JScrollPane scroll = new JScrollPane (c, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     Color color=new Color(0,0,0);
     c.setBackground(color);
 
     Color color2=new Color(180,180,180);
     c.setForeground(color2);
 
-    add(c, BorderLayout.EAST);
+    add(scroll, BorderLayout.EAST);
 	}
     // }}}
 
