@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -53,7 +55,11 @@ implements EBComponent, AithonActions, DefaultFocusComponent {
   private JButton detectButton;
   private JButton uploadButton;
   private JButton compileButton;
-  private JTextArea c;
+  private JToggleButton showSerialTerminal;
+  private JTextArea console_area;
+  private Runtime r;
+  private Process p;
+  private Thread t;
     // }}}
 
     // {{{ Constructor
@@ -65,6 +71,7 @@ implements EBComponent, AithonActions, DefaultFocusComponent {
    * 	see @ref DockableWindowManager for possible values.
    */
   public Aithon(View view, String position) {
+    String line;
     //super(new BorderLayout());
     //super(new FlowLayout());
     this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -84,7 +91,7 @@ implements EBComponent, AithonActions, DefaultFocusComponent {
     compileButton.setText("<html><center>"+"Compile"+"<br>"+"Code"+"</center></html>");
     uploadButton = new JButton("Upload");
     uploadButton.setText("<html><center>"+"Upload"+"<br>"+"HEX File"+"</center></html>");
-    JToggleButton showSerialTerminal = new JToggleButton("Serial Terminal");
+    showSerialTerminal = new JToggleButton("Serial Terminal");
     
     buttons.add(detectButton);
     buttons.add(compileButton);
@@ -93,7 +100,7 @@ implements EBComponent, AithonActions, DefaultFocusComponent {
 
     add(buttons);
 
-    JTextArea console_area = new JTextArea("This is the console area"); //create the console area
+    console_area = new JTextArea("This is the console area"); //create the console area
     console_area.setLineWrap(true);
     console_area.setWrapStyleWord(true);
 
@@ -105,7 +112,36 @@ implements EBComponent, AithonActions, DefaultFocusComponent {
     console_area.setForeground(color2);
 
     add(scrollbars);
+
+    //start console process
+    String[] args = {"/usr/bin/python"};
+    r = Runtime.getRuntime();
+    try {
+      p = r.exec(args);
+      //inputStreamToOutputStream(p.getInputStream());
+    } catch (IOException e) {
+      System.err.println("Caught IOException: " + e.getMessage());
+    }
+
   }
+
+  void inputStreamToOutputStream(final InputStream inputStream) {
+    t = new Thread(new Runnable() {
+        public void run() {
+        try {
+        int d;
+        while ((d = inputStream.read()) != -1) {
+        console_area.append(Character.toString((char)d));
+        }
+        } catch (IOException e) {
+        System.err.println("Caught IOException: " + e.getMessage());
+        }
+        }
+        });
+    t.setDaemon(true);
+    t.start();
+  }
+
   // }}}
 
     // {{{ Member Functions
