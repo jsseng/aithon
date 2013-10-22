@@ -7,13 +7,13 @@ plugin.AithonPlugin.activate=defer
 
 # These two properties are required for all plugins
 plugin.AithonPlugin.name=Aithon
-plugin.AithonPlugin.author=John Gellene
+plugin.AithonPlugin.author=Aithon Development Team
 
 # Even if you don't store additional files, this is a good idea to set:
 plugin.AithonPlugin.usePluginHome=true
 
 # version number == jEdit version number
-plugin.AithonPlugin.version=5.0
+plugin.AithonPlugin.version=1.0
 
 # online help
 plugin.AithonPlugin.docs=index.html
@@ -23,7 +23,7 @@ plugin.AithonPlugin.depend.0=jdk 1.6
 # See jEdit.getBuild() to understand version numbering scheme.
 plugin.AithonPlugin.depend.1=jedit 05.00.01.00
 
-plugin.AithonPlugin.description=This plugin provides a dockable "scratch pad" for writing and displaying notes, to do lists or similar items as unformatted text.
+plugin.AithonPlugin.description=This plugin provides support for the Aithon board.
 # plugin menu
 plugin.AithonPlugin.menu=aithon \
 	- \

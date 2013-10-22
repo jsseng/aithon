@@ -11,9 +11,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -31,21 +34,20 @@ import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 // }}}
 
-// {{{ QuickNotePad class
+// {{{ Aithon_Plugin class
 /**
  * 
- * QuickNotePad - a dockable JPanel, a demonstration of a jEdit plugin.
+ * Aithon Plugin
  *
  */
 public class Aithon extends JPanel
-    implements EBComponent, AithonActions, DefaultFocusComponent {
+implements EBComponent, AithonActions, DefaultFocusComponent {
 
-    // {{{ Instance Variables
-	private static final long serialVersionUID = 6412255692894321789L;
-	private String filename;
-	private String defaultFilename;
-	private View view;
-	private boolean floating;
+  // {{{ Instance Variables
+  private String filename;
+  private String defaultFilename;
+  private View view;
+  private boolean floating;
 
   private AithonToolPanel toolPanel;
   private JButton detectButton;
@@ -55,51 +57,56 @@ public class Aithon extends JPanel
     // }}}
 
     // {{{ Constructor
-	/**
-	 * 
-	 * @param view the current jedit window
-	 * @param position a variable passed in from the script in actions.xml,
-	 * 	which can be DockableWindowManager.FLOATING, TOP, BOTTOM, LEFT, RIGHT, etc.
-	 * 	see @ref DockableWindowManager for possible values.
-	 */
-	public Aithon(View view, String position) {
-		//super(new BorderLayout());
-		super(new FlowLayout());
-		this.view = view;
-		this.floating = position.equals(DockableWindowManager.FLOATING);
+  /**
+   * 
+   * @param view the current jedit window
+   * @param position a variable passed in from the script in actions.xml,
+   * 	which can be DockableWindowManager.FLOATING, TOP, BOTTOM, LEFT, RIGHT, etc.
+   * 	see @ref DockableWindowManager for possible values.
+   */
+  public Aithon(View view, String position) {
+    //super(new BorderLayout());
+    //super(new FlowLayout());
+    this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+    this.view = view;
+    this.floating = position.equals(DockableWindowManager.FLOATING);
 
-		//this.toolPanel = new AithonToolPanel(this);
-		//add(BorderLayout.NORTH, this.toolPanel);
+    if (floating)
+      this.setPreferredSize(new Dimension(500, 250));
 
-		if (floating)
-			this.setPreferredSize(new Dimension(500, 250));
-
-		//add(BorderLayout.CENTER, pane);
-    JToolBar buttons = new JToolBar();
+    JPanel buttons = new JPanel();
+    buttons.setLayout(new FlowLayout());
+    buttons.setPreferredSize(new Dimension(150,180));
+    buttons.setMaximumSize(new Dimension(150, 180));
     detectButton = new JButton("Detect\nBoard");
     detectButton.setText("<html><center>"+"Detect"+"<br>"+"Board"+"</center></html>");
     compileButton = new JButton("Compile");
     compileButton.setText("<html><center>"+"Compile"+"<br>"+"Code"+"</center></html>");
     uploadButton = new JButton("Upload");
     uploadButton.setText("<html><center>"+"Upload"+"<br>"+"HEX File"+"</center></html>");
+    JToggleButton showSerialTerminal = new JToggleButton("Serial Terminal");
+    
     buttons.add(detectButton);
     buttons.add(compileButton);
     buttons.add(uploadButton);
+    buttons.add(showSerialTerminal);
 
-    add(buttons, BorderLayout.WEST);
+    add(buttons);
 
-    JTextArea c = new JTextArea("This is a test sentence. jdkslfdjalk klfd; asjfkdla ;fjdksla; fdjkslaf d;sal dfkj");
+    JTextArea console_area = new JTextArea("This is the console area"); //create the console area
+    console_area.setLineWrap(true);
+    console_area.setWrapStyleWord(true);
 
-    JScrollPane scroll = new JScrollPane (c, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-    Color color=new Color(0,0,0);
-    c.setBackground(color);
+    JScrollPane scrollbars = new JScrollPane (console_area, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    Color color=new Color(0,0,0); //set background to black
+    console_area.setBackground(color);
 
-    Color color2=new Color(180,180,180);
-    c.setForeground(color2);
+    Color color2=new Color(180,180,180); //set foreground to gray
+    console_area.setForeground(color2);
 
-    add(scroll, BorderLayout.EAST);
-	}
-    // }}}
+    add(scrollbars);
+  }
+  // }}}
 
     // {{{ Member Functions
     
