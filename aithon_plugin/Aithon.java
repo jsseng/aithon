@@ -134,16 +134,16 @@ implements ActionListener, EBComponent, AithonActions,
 
   void inputStreamToOutputStream(final InputStream inputStream) {
     t = new Thread(new Runnable() {
-        public void run() {
-        try {
-        int d;
-        while ((d = inputStream.read()) != -1) {
-        console_area.append(Character.toString((char)d));
-        }
-        } catch (IOException e) {
-        System.err.println("Caught IOException: " + e.getMessage());
-        }
-        }
+          public void run() {
+            try {
+              int d;
+              while ((d = inputStream.read()) != -1) {
+                console_area.append(Character.toString((char)d));
+              }
+            } catch (IOException e) {
+              System.err.println("Caught IOException: " + e.getMessage());
+            }
+          }
         });
     t.setDaemon(true);
     t.start();
@@ -155,6 +155,7 @@ implements ActionListener, EBComponent, AithonActions,
       try {
         out.write("print\"upload\"\n");
         out.flush();
+        console_area.setCaretPosition (console_area.getDocument().getLength());
       } catch (IOException e) {
         System.err.println("Caught IOException: " + e.getMessage());
       }
@@ -162,6 +163,15 @@ implements ActionListener, EBComponent, AithonActions,
       try {
         out.write("print\"detect\"\n");
         out.flush();
+        console_area.setCaretPosition (console_area.getDocument().getLength());
+      } catch (IOException e) {
+        System.err.println("Caught IOException: " + e.getMessage());
+      }
+    } else if (src == compileButton) {
+      try {
+        out.write("print\"compile\"\n");
+        out.flush();
+        console_area.setCaretPosition (console_area.getDocument().getLength());
       } catch (IOException e) {
         System.err.println("Caught IOException: " + e.getMessage());
       }
