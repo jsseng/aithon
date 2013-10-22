@@ -4,9 +4,13 @@ import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -43,7 +47,8 @@ import org.gjt.sp.util.StandardUtilities;
  *
  */
 public class Aithon extends JPanel
-implements EBComponent, AithonActions, DefaultFocusComponent {
+implements ActionListener, EBComponent, AithonActions, 
+           DefaultFocusComponent {
 
   // {{{ Instance Variables
   private String filename;
@@ -60,6 +65,7 @@ implements EBComponent, AithonActions, DefaultFocusComponent {
   private Runtime r;
   private Process p;
   private Thread t;
+  private BufferedWriter out;
     // }}}
 
     // {{{ Constructor
@@ -71,9 +77,6 @@ implements EBComponent, AithonActions, DefaultFocusComponent {
    * 	see @ref DockableWindowManager for possible values.
    */
   public Aithon(View view, String position) {
-    String line;
-    //super(new BorderLayout());
-    //super(new FlowLayout());
     this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     this.view = view;
     this.floating = position.equals(DockableWindowManager.FLOATING);
@@ -87,10 +90,13 @@ implements EBComponent, AithonActions, DefaultFocusComponent {
     buttons.setMaximumSize(new Dimension(150, 180));
     detectButton = new JButton("Detect\nBoard");
     detectButton.setText("<html><center>"+"Detect"+"<br>"+"Board"+"</center></html>");
+    detectButton.addActionListener(this);
     compileButton = new JButton("Compile");
     compileButton.setText("<html><center>"+"Compile"+"<br>"+"Code"+"</center></html>");
+    compileButton.addActionListener(this);
     uploadButton = new JButton("Upload");
     uploadButton.setText("<html><center>"+"Upload"+"<br>"+"HEX File"+"</center></html>");
+    uploadButton.addActionListener(this);
     showSerialTerminal = new JToggleButton("Serial Terminal");
     
     buttons.add(detectButton);
@@ -114,11 +120,12 @@ implements EBComponent, AithonActions, DefaultFocusComponent {
     add(scrollbars);
 
     //start console process
-    String[] args = {"/usr/bin/python"};
+    String[] args = {"/usr/bin/python", "-i"};
     r = Runtime.getRuntime();
     try {
       p = r.exec(args);
-      //inputStreamToOutputStream(p.getInputStream());
+      inputStreamToOutputStream(p.getInputStream());
+      out = new BufferedWriter( new OutputStreamWriter(p.getOutputStream()) );
     } catch (IOException e) {
       System.err.println("Caught IOException: " + e.getMessage());
     }
@@ -140,6 +147,25 @@ implements EBComponent, AithonActions, DefaultFocusComponent {
         });
     t.setDaemon(true);
     t.start();
+  }
+
+  public void actionPerformed(ActionEvent evt) {
+    Object src = evt.getSource();
+    if (src == uploadButton) {
+      try {
+        out.write("print\"upload\"\n");
+        out.flush();
+      } catch (IOException e) {
+        System.err.println("Caught IOException: " + e.getMessage());
+      }
+    } else if (src == detectButton) {
+      try {
+        out.write("print\"detect\"\n");
+        out.flush();
+      } catch (IOException e) {
+        System.err.println("Caught IOException: " + e.getMessage());
+      }
+    }
   }
 
   // }}}
