@@ -29,6 +29,6 @@ import org.gjt.sp.jedit.EditPlugin;
  * @author John Gellene
  */
 public class AithonPlugin extends EditPlugin {
-	public static final String NAME = "quicknotepad";
-	public static final String OPTION_PREFIX = "options.quicknotepad.";
+	public static final String NAME = "aithon";
+	public static final String OPTION_PREFIX = "options.aithon.";
 }
