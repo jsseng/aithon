@@ -1,5 +1,6 @@
 // {{{ imports
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
@@ -62,7 +63,8 @@ public class Aithon extends JPanel
 	 * 	see @ref DockableWindowManager for possible values.
 	 */
 	public Aithon(View view, String position) {
-		super(new BorderLayout());
+		//super(new BorderLayout());
+		super(new FlowLayout());
 		this.view = view;
 		this.floating = position.equals(DockableWindowManager.FLOATING);
 
