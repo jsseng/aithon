@@ -61,6 +61,7 @@ implements ActionListener, EBComponent, AithonActions,
   private JButton compileButton;
   private JToggleButton showSerialTerminal;
   private JTextArea console_area;
+  private JScrollPane console_scrollbars;
   private Runtime r;
   private Process p;
   private Thread t;
@@ -105,25 +106,30 @@ implements ActionListener, EBComponent, AithonActions,
 
     add(buttons);
 
-    console_area = new JTextArea("This is the console area"); //create the console area
+    //create the console area
+    console_area = new JTextArea("This is the console area");
     console_area.setLineWrap(true);
     console_area.setWrapStyleWord(true);
 
-    JScrollPane scrollbars = new JScrollPane (console_area, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    console_scrollbars = new JScrollPane (console_area, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     Color color=new Color(0,0,0); //set background to black
     console_area.setBackground(color);
 
     Color color2=new Color(180,180,180); //set foreground to gray
     console_area.setForeground(color2);
 
-    add(scrollbars);
+    add(console_scrollbars);
 
     //start console process
-    String[] args = {"/usr/bin/python", "-i"};
+    String[] cmd = {"/usr/bin/python", "-i"}; //use python as test console
     r = Runtime.getRuntime();
     try {
-      p = r.exec(args);
+      p = r.exec(cmd); //start the console process
+      
+      //start the thread to capture output
       inputStreamToOutputStream(p.getInputStream());
+      
+      //write to 'out' to send data to the console
       out = new BufferedWriter( new OutputStreamWriter(p.getOutputStream()) );
     } catch (IOException e) {
       System.err.println("Caught IOException: " + e.getMessage());
@@ -131,6 +137,7 @@ implements ActionListener, EBComponent, AithonActions,
 
   }
 
+  //starts a thread that reads an OutputStream and displays it to the console
   void inputStreamToOutputStream(final InputStream inputStream) {
     t = new Thread(new Runnable() {
           public void run() {
@@ -148,28 +155,35 @@ implements ActionListener, EBComponent, AithonActions,
     t.start();
   }
 
+  //invoked when the buttons are clicked
   public void actionPerformed(ActionEvent evt) {
     Object src = evt.getSource();
-    if (src == uploadButton) {
+    if (src == uploadButton) { //check if upload clicked
       try {
         out.write("print\"upload\"\n");
         out.flush();
+        
+        //scroll the area
         console_area.setCaretPosition (console_area.getDocument().getLength());
       } catch (IOException e) {
         System.err.println("Caught IOException: " + e.getMessage());
       }
-    } else if (src == detectButton) {
+    } else if (src == detectButton) { //check if detect clicked
       try {
         out.write("print\"detect\"\n");
         out.flush();
+        
+        //scroll the area
         console_area.setCaretPosition (console_area.getDocument().getLength());
       } catch (IOException e) {
         System.err.println("Caught IOException: " + e.getMessage());
       }
-    } else if (src == compileButton) {
+    } else if (src == compileButton) { //check if compile clicked
       try {
         out.write("print\"compile\"\n");
         out.flush();
+        
+        //scroll the area
         console_area.setCaretPosition (console_area.getDocument().getLength());
       } catch (IOException e) {
         System.err.println("Caught IOException: " + e.getMessage());
