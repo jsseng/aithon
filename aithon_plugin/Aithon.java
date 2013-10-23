@@ -237,7 +237,7 @@ implements ActionListener, EBComponent, AithonActions,
 	}
     // }}}
     
-	// QuickNotepadActions implementation
+	// AithonActions implementation
 
     // {{{
 	public void saveFile() {

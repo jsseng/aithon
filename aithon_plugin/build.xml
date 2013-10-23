@@ -1,6 +1,6 @@
 <project name="Aithon" default="build">
   <description>
-    This is an ant build.xml file for building the QuickNotepad plugin for jEdit.
+    This is an ant build.xml file for building the Aithon plugin for jEdit.
   </description>
 
   <property file="./build.properties"/>

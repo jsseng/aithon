@@ -1,6 +1,5 @@
 /*
- * QuickNotepadPlugin.java
- * part of the QuickNotepad plugin for the jEdit text editor
+ * AithonPlugin.java
  * Copyright (C) 2001 John Gellene
  * jgellene@nyc.rr.com
  *
@@ -24,9 +23,9 @@
 import org.gjt.sp.jedit.EditPlugin;
 
 /**
- * The QuickNotepad plugin
+ * The Aithon plugin
  * 
- * @author John Gellene
+ * @author Aithon Development Team
  */
 public class AithonPlugin extends EditPlugin {
 	public static final String NAME = "aithon";
