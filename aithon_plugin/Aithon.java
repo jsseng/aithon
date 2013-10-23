@@ -117,6 +117,7 @@ implements ActionListener, EBComponent, AithonActions,
     console_area = new JTextArea("This is the console area");
     console_area.setLineWrap(true);
     console_area.setWrapStyleWord(true);
+    console_area.setEditable(false);
 
     console_scrollbars = new JScrollPane (console_area,
     	    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
