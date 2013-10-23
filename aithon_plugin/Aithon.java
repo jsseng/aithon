@@ -56,7 +56,6 @@ implements ActionListener, EBComponent, AithonActions,
   private View view;
   private boolean floating;
 
-  private AithonToolPanel toolPanel;
   private JButton detectButton;
   private JButton uploadButton;
   private JButton compileButton;
@@ -209,7 +208,7 @@ implements ActionListener, EBComponent, AithonActions,
 				.getProperty(AithonPlugin.OPTION_PREFIX + "filepath");
 		if (!StandardUtilities.objectsEqual(defaultFilename, propertyFilename)) {
 			saveFile();
-			toolPanel.propertiesChanged();
+			//toolPanel.propertiesChanged();
 			defaultFilename = propertyFilename;
 			filename = defaultFilename;
 		}
@@ -262,7 +261,7 @@ implements ActionListener, EBComponent, AithonActions,
 		if (paths != null && !paths[0].equals(filename)) {
 			saveFile();
 			filename = paths[0];
-			toolPanel.propertiesChanged();
+			//toolPanel.propertiesChanged();
 		}
 	}
     // }}}
