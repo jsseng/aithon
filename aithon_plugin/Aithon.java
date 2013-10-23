@@ -77,6 +77,8 @@ implements ActionListener, EBComponent, AithonActions,
    * 	see @ref DockableWindowManager for possible values.
    */
   public Aithon(View view, String position) {
+    //The top level layout is a BoxLayout with the boxes side by side.
+    //The buttons on the left and the console on the right.
     this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     this.view = view;
     this.floating = position.equals(DockableWindowManager.FLOATING);
@@ -84,16 +86,21 @@ implements ActionListener, EBComponent, AithonActions,
     if (floating)
       this.setPreferredSize(new Dimension(500, 250));
 
+    //The buttons panel is a FlowLayout with a fixed maximum size which
+    //forces the buttons to be arranged in a single column.
     JPanel buttons = new JPanel();
     buttons.setLayout(new FlowLayout());
     buttons.setPreferredSize(new Dimension(150,180));
     buttons.setMaximumSize(new Dimension(150, 180));
+    
     detectButton = new JButton("Detect\nBoard");
     detectButton.setText("<html><center>"+"Detect"+"<br>"+"Board"+"</center></html>");
     detectButton.addActionListener(this);
+    
     compileButton = new JButton("Compile");
     compileButton.setText("<html><center>"+"Compile"+"<br>"+"Code"+"</center></html>");
     compileButton.addActionListener(this);
+    
     uploadButton = new JButton("Upload");
     uploadButton.setText("<html><center>"+"Upload"+"<br>"+"HEX File"+"</center></html>");
     uploadButton.addActionListener(this);
@@ -111,7 +118,9 @@ implements ActionListener, EBComponent, AithonActions,
     console_area.setLineWrap(true);
     console_area.setWrapStyleWord(true);
 
-    console_scrollbars = new JScrollPane (console_area, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    console_scrollbars = new JScrollPane (console_area,
+    	    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+    	    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     Color color=new Color(0,0,0); //set background to black
     console_area.setBackground(color);
 
@@ -143,6 +152,7 @@ implements ActionListener, EBComponent, AithonActions,
           public void run() {
             try {
               int d;
+              //if there is nothing to read then block, otherwise print
               while ((d = inputStream.read()) != -1) {
                 console_area.append(Character.toString((char)d));
               }
@@ -151,7 +161,7 @@ implements ActionListener, EBComponent, AithonActions,
             }
           }
         });
-    t.setDaemon(true);
+    t.setDaemon(true);  //make this a daemon thread so the JVM will exit
     t.start();
   }
 
