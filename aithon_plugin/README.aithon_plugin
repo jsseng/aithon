@@ -13,3 +13,9 @@ Installing Ant For Windows
 2.  Unzip the file into a directory
 3.  Set the environment variable $ANT_HOME to point to the directory
 4.  Add the directory $ANT_HOME\bin to the Path environment variable
+
+----
+
+Install the ARM toolchain (arm-none-eabi-gcc)
+
+https://launchpad.net/gcc-arm-embedded
